@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 
 
 //реализация взаимодействия с Orders (получение списка заказов, создание заказа)
-public class OrderClient extends BaseClient{
+public class OrderClient extends BaseClient {
 
     @Step("Создание заказа (POST /api/orders)")
     public static Response createOrder(OrderBean orderBean, String accessToken) {

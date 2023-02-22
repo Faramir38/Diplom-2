@@ -21,7 +21,7 @@ public class GetOrderListTest extends BaseTest {
     //авторизованный пользователь
     @Test
     @DisplayName("GET /api/orders возвращает список заказов для авторизованного пользователя")
-    public void shouldListOrdersForAuthUser(){
+    public void shouldListOrdersForAuthUser() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -39,7 +39,7 @@ public class GetOrderListTest extends BaseTest {
                 ingredientList.get(1).get_id(),
                 ingredientList.get(2).get_id());
         //создаем заказ
-        OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete());
+        OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete());
 
         //Act
         OrderClient.getUserOrdersList(getTokenToDelete())
@@ -50,13 +50,12 @@ public class GetOrderListTest extends BaseTest {
                 .and().assertThat().body("orders", notNullValue())
                 .and().assertThat().body("total", notNullValue())
                 .and().assertThat().body("totalToday", notNullValue());
-
     }
 
     //неавторизованный пользователь
     @Test
     @DisplayName("GET /api/orders возвращает 401 для неавторизованного пользователя")
-    public void shouldNotListOrdersForUnauthUser(){
+    public void shouldNotListOrdersForUnauthUser() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -75,7 +74,7 @@ public class GetOrderListTest extends BaseTest {
                 ingredientList.get(1).get_id(),
                 ingredientList.get(2).get_id());
         //создаем заказ
-        OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete());
+        OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete());
         //разлогиниваемся
         UserClient.logoutUser(refreshToken);
 
@@ -86,7 +85,5 @@ public class GetOrderListTest extends BaseTest {
                 .then().statusCode(SC_UNAUTHORIZED)
                 .and().assertThat().body("success", equalTo(false))
                 .and().assertThat().body("message", equalTo("You should be authorised"));
-
     }
-
 }

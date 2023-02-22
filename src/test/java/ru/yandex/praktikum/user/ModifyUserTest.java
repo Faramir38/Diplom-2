@@ -25,8 +25,7 @@ public class ModifyUserTest extends BaseTest {
     //с авторизацией
     @Test
     @DisplayName("PATCH /api/auth/user изменяет email авторизованного пользователя")
-    public void shouldModifyEmailAuthorisedUser()
-    {
+    public void shouldModifyEmailAuthorisedUser() {
         //Arrange
         String oldEmail = DataGenerator.randomEmail();
         NewUserBean newUser = new NewUserBean(oldEmail, DataGenerator.randomPassword(),
@@ -40,20 +39,18 @@ public class ModifyUserTest extends BaseTest {
 
         //Act
         UserClient.modifyUser(new UserBean(newEmail, newUser.getName()), getTokenToDelete())
-        //Assert
+                //Assert
                 .then().statusCode(SC_OK)
                 .and().assertThat().body("success", equalTo(true))
                 .and().assertThat().body("user", notNullValue());
 
         Assert.assertEquals("Email не изменился", newEmail,
                 UserClient.getUserData(getTokenToDelete()).getEmail());
-
     }
 
     @Test
     @DisplayName("PATCH /api/auth/user изменяет name авторизованного пользователя")
-    public void shouldModifyNameAuthorisedUser()
-    {
+    public void shouldModifyNameAuthorisedUser() {
         //Arrange
         String oldName = DataGenerator.randomName();
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(), DataGenerator.randomPassword(),
@@ -74,14 +71,12 @@ public class ModifyUserTest extends BaseTest {
 
         Assert.assertEquals("Name не изменился", newName,
                 UserClient.getUserData(getTokenToDelete()).getName());
-
     }
 
     //без авторизации
     @Test
     @DisplayName("PATCH /api/auth/user не изменяет email неавторизованного пользователя")
-    public void shouldNotModifyEmailUnauthorisedUser()
-    {
+    public void shouldNotModifyEmailUnauthorisedUser() {
         //Arrange
         String oldEmail = DataGenerator.randomEmail();
         NewUserBean newUser = new NewUserBean(oldEmail, DataGenerator.randomPassword(),
@@ -103,13 +98,11 @@ public class ModifyUserTest extends BaseTest {
 
         Assert.assertEquals("Email изменился", oldEmail,
                 UserClient.getUserData(getTokenToDelete()).getEmail());
-
     }
 
     @Test
     @DisplayName("PATCH /api/auth/user не изменяет name неавторизованного пользователя")
-    public void shouldNotModifyNameUnauthorisedUser()
-    {
+    public void shouldNotModifyNameUnauthorisedUser() {
         //Arrange
         String oldName = DataGenerator.randomName();
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(), DataGenerator.randomPassword(),
@@ -130,7 +123,5 @@ public class ModifyUserTest extends BaseTest {
 
         Assert.assertEquals("Name изменился", oldName,
                 UserClient.getUserData(getTokenToDelete()).getName());
-
     }
-
 }

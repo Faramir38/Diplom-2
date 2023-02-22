@@ -9,7 +9,8 @@ import ru.yandex.praktikum.UserClient;
 import ru.yandex.praktikum.pojo.NewUserBean;
 import ru.yandex.praktikum.pojo.UserLoginBean;
 
-import static org.apache.http.HttpStatus.*;
+import static org.apache.http.HttpStatus.SC_OK;
+import static org.apache.http.HttpStatus.SC_UNAUTHORIZED;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -30,14 +31,12 @@ public class LoginUserTest extends BaseTest {
         //Act
         UserClient.loginUser(new UserLoginBean(newUser.getEmail(), newUser.getPassword()))
 
-        //Assert
+                //Assert
                 .then().statusCode(SC_OK)
                 .and().assertThat().body("success", equalTo(true))
                 .and().assertThat().body("user", notNullValue())
                 .and().assertThat().body("accessToken", notNullValue())
                 .and().assertThat().body("refreshToken", notNullValue());
-
-
     }
 
     //логин с неверным логином и паролем
@@ -55,12 +54,10 @@ public class LoginUserTest extends BaseTest {
         //Act
         UserClient.loginUser(new UserLoginBean(newUser.getEmail(), DataGenerator.randomPassword()))
 
-        //Assert
+                //Assert
                 .then().statusCode(SC_UNAUTHORIZED)
                 .and().assertThat().body("success", equalTo(false))
                 .and().assertThat().body("message", equalTo("email or password are incorrect"));
-
-
     }
 
 
@@ -78,13 +75,9 @@ public class LoginUserTest extends BaseTest {
         //Act
         UserClient.loginUser(new UserLoginBean(DataGenerator.randomEmail(), newUser.getPassword()))
 
-        //Assert
+                //Assert
                 .then().statusCode(SC_UNAUTHORIZED)
                 .and().assertThat().body("success", equalTo(false))
                 .and().assertThat().body("message", equalTo("email or password are incorrect"));
-
-
     }
-
-
 }

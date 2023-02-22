@@ -8,11 +8,12 @@ import lombok.Setter;
 import java.util.List;
 
 //POJO для ответа на запрос списка ингредиентов
-@Getter @Setter
-@AllArgsConstructor @NoArgsConstructor
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class IngredientListBean {
 
     private boolean success;
     private List<IngredientBean> data;
-
 }

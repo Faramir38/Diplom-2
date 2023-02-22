@@ -6,7 +6,8 @@ import lombok.Setter;
 import org.junit.After;
 
 //базовый тестовый класс для удаления созданных пользователей
-@Getter @Setter
+@Getter
+@Setter
 public class BaseTest {
 
     private String tokenToDelete = null;
@@ -17,8 +18,6 @@ public class BaseTest {
 
         if (tokenToDelete != null) {
             UserClient.deleteUser(tokenToDelete);
-          }
+        }
     }
-
-
 }

@@ -21,7 +21,7 @@ public class CreateOrderTest extends BaseTest {
     //с авторизацией
     @Test
     @DisplayName("GET /api/orders возвращает список заказов для авторизованного пользователя")
-    public void shouldCreateOrderForAuthUser(){
+    public void shouldCreateOrderForAuthUser() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -39,20 +39,19 @@ public class CreateOrderTest extends BaseTest {
                 ingredientList.get(2).get_id());
 
         //Act
-        OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete())
+        OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete())
 
                 //Assert
                 .then().statusCode(SC_OK)
                 .and().assertThat().body("success", equalTo(true))
                 .and().assertThat().body("name", notNullValue())
                 .and().assertThat().body("order", notNullValue());
-
     }
 
     //без авторизации
     @Test
     @DisplayName("POST /api/orders не создает заказ для неавторизованного пользователя")
-    public void shouldNotCreateOrderForUnauthUser(){
+    public void shouldNotCreateOrderForUnauthUser() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -69,7 +68,7 @@ public class CreateOrderTest extends BaseTest {
                 ingredientList.get(2).get_id());
 
         //Act
-        int actualStatus = OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete()).getStatusCode();
+        int actualStatus = OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete()).getStatusCode();
 
         //Assert
         Assert.assertNotEquals("Статус ответа на запрос не 4хх", SC_OK, actualStatus);
@@ -78,7 +77,7 @@ public class CreateOrderTest extends BaseTest {
     //без ингредиентов
     @Test
     @DisplayName("POST /api/orders не создает заказ без ингредиентов и возвращает 400")
-    public void shouldNotCreateOrderWithoutIngredient(){
+    public void shouldNotCreateOrderWithoutIngredient() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -92,21 +91,19 @@ public class CreateOrderTest extends BaseTest {
         List<String> ingredients = List.of();
 
         //Act
-        OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete())
+        OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete())
 
                 //Assert
                 .then().statusCode(SC_BAD_REQUEST)
                 .and().assertThat().body("success", equalTo(false))
                 .and().assertThat().body("message", equalTo("Ingredient ids must be provided"));
-
-
     }
 
 
     //с неверным хешем ингредиентов
     @Test
     @DisplayName("POST /api/orders не создает заказ с неверным id ингредиента и возвращает 500")
-    public void shouldNotCreateOrderWithWrongIds(){
+    public void shouldNotCreateOrderWithWrongIds() {
         //Arrange
         NewUserBean newUser = new NewUserBean(DataGenerator.randomEmail(),
                 DataGenerator.randomPassword(), DataGenerator.randomName());
@@ -120,12 +117,9 @@ public class CreateOrderTest extends BaseTest {
         List<String> ingredients = List.of(DataGenerator.randomPassword());
 
         //Act
-        OrderClient.createOrder(new OrderBean(ingredients),getTokenToDelete())
+        OrderClient.createOrder(new OrderBean(ingredients), getTokenToDelete())
 
                 //Assert
                 .then().statusCode(SC_INTERNAL_SERVER_ERROR);
-
-
     }
-
 }

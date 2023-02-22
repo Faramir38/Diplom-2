@@ -23,7 +23,6 @@ public class UserClient extends BaseClient {
     public static String getAccessToken(Response response) {
 
         return response.body().as(AuthAnswerBean.class).getAccessToken().replace("Bearer ", "");
-
     }
 
     @Step("Извлечение refreshToken")
@@ -73,5 +72,4 @@ public class UserClient extends BaseClient {
                 .post(BurgerConst.BURGER_API_USER_LOGOUT);
 
     }
-
 }

@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //POJO для регистрации пользователя
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewUserBean {
@@ -14,5 +15,4 @@ public class NewUserBean {
     private String email;
     private String password;
     private String name;
-
 }

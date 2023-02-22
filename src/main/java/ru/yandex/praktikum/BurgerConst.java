@@ -13,5 +13,4 @@ public class BurgerConst {
     public static final String BURGER_API_INGREDIENTS = "/api/ingredients";
     public static final String BURGER_API_USER_DATA = "/api/auth/user";
     public static final String BURGER_API_USER_LOGOUT = "/api/auth/logout";
-
 }

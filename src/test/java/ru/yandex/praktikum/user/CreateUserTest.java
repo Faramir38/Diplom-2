@@ -35,8 +35,6 @@ public class CreateUserTest extends BaseTest {
                 .and().assertThat().body("user", notNullValue())
                 .and().assertThat().body("accessToken", notNullValue())
                 .and().assertThat().body("refreshToken", notNullValue());
-
-
     }
 
     //создать пользователя, который уже зарегистрирован
@@ -61,9 +59,9 @@ public class CreateUserTest extends BaseTest {
         //Assert
         response1.then().statusCode(SC_FORBIDDEN)
                 .and().assertThat().body("success", equalTo(false))
-                .and().assertThat().body("message", equalTo( "User already exists"));
-
+                .and().assertThat().body("message", equalTo("User already exists"));
     }
+
     //создать пользователя и не заполнить одно из обязательных полей (параметризованный)
     @Test
     @DisplayName("POST /api/auth/register возвращает 403 при попытке создания пользователя без email")
@@ -81,7 +79,7 @@ public class CreateUserTest extends BaseTest {
         //Assert
         response.then().statusCode(SC_FORBIDDEN)
                 .and().assertThat().body("success", equalTo(false))
-                .and().assertThat().body("message", equalTo( "Email, password and name are required fields"));
+                .and().assertThat().body("message", equalTo("Email, password and name are required fields"));
 
     }
 
@@ -101,7 +99,7 @@ public class CreateUserTest extends BaseTest {
         //Assert
         response.then().statusCode(SC_FORBIDDEN)
                 .and().assertThat().body("success", equalTo(false))
-                .and().assertThat().body("message", equalTo( "Email, password and name are required fields"));
+                .and().assertThat().body("message", equalTo("Email, password and name are required fields"));
 
     }
 
@@ -122,8 +120,6 @@ public class CreateUserTest extends BaseTest {
         //Assert
         response.then().statusCode(SC_FORBIDDEN)
                 .and().assertThat().body("success", equalTo(false))
-                .and().assertThat().body("message", equalTo( "Email, password and name are required fields"));
-
+                .and().assertThat().body("message", equalTo("Email, password and name are required fields"));
     }
-
 }

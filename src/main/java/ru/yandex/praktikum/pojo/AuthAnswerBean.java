@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 //POJO для ответа на запрос регистрации и авторизации пользователя
-@Getter @Setter
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthAnswerBean {
@@ -15,5 +16,4 @@ public class AuthAnswerBean {
     private UserBean user;
     private String accessToken;
     private String refreshToken;
-
 }
